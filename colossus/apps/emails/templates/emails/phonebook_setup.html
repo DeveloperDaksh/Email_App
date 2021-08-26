@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {% if success %}
+      <p><span style="color: #1c7430">{{ success }}</span></p>
+  {% endif %}
+  {% if fail %}
+      <p><span style="color: crimson">{{ fail }}</span></p>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <br/>
+  <div>
+    {% if no_data %}
+      <p><span style="color: #1c7430">{{ no_data }}</span></p>
+    {% endif %}
+    <table style="border-style: inset;text-align: center;width:400px;border: 1px solid black;">
+      {% if not fail %}
+        <th style="border: 1px solid black;">
+        Emails
+        </th>
+      {% endif %}
+      {%for detail in phonebook_details%}
+      <tr style="border: 1px solid black;">
+        <td style="border: 1px solid black;">
+          {{detail.email}}
+        </td>
+      </tr>
+      {%endfor%}
+    </table>
+  </div>
+{% endblock %}

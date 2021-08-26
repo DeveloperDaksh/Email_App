@@ -1,0 +1,20 @@
+{% extends 'core/setup.html' %}
+
+{% load crispy_forms_tags i18n %}
+
+{% block content %}
+  {% if success %}
+    <p><span style="color: seagreen">{{success}} Back To  <a href="/accounts/login" style="text-decoration: none"> Login</a> </span></p>
+  {% endif %}
+  {% if fail %}
+    <p><span style="color: crimson">{{fail}} </span></p>
+  {% endif %}
+  <p class="lead">{% trans 'Create an admin account to manage DocsUp:' %}</p>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">{% trans 'Create admin account' %}</button>
+    <br/>
+    <a href="/accounts/login" class="btn btn-link">{% trans 'Login' %}</a>
+  </form>
+{% endblock %}
